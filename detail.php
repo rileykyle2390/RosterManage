@@ -121,6 +121,14 @@ $players = [
         'picture' => 'https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/qlfuys6o36ztraxqpgrg.jpg'
     ],
 ];
+if(!isset($_GET['id'])){
+    echo 'Please visit <a href="index.php">the Roster</a>';
+    die();
+}
+if($_GET['id'] < 0 || $_GET['id'] > count($players)-1){
+    echo 'Please visit <a href="index.php">the Roster</a>';
+    die();
+}
 
 ?>
 
@@ -134,24 +142,23 @@ $players = [
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-    <title>Player Roster</title>
+    <title><?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name']?></title>
   </head>
   <body>
-    <h1><center>Roster</center></h1>
+  <div class="container">
+    <h1><center><?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name'].' #'.$players[$_GET['id']]['number'].', '.$players[$_GET['id']]['position'] ?></center></h1>
     <hr>
-    <?php
-    for($i=0; $i < count($players); $i++){
-       echo '<div class="card" style="width: 18rem;">
-         <img src="'.$players[$i]['picture'].'" class="card-img-top" alt="'.$players[$i]['first_name'].' '.$players[$i]['last_name'].'">
-        <div class="card-body">
-            <h5 class="card-title">'.$players[$i]['first_name'].' '.$players[$i]['last_name'].'</h5>
-            <p class="card-text">#'.$players[$i]['number'].', '.$players[$i]['position'].'</p>
-         <a href="http://localhost/git/RosterManage/detail.php?id='.$i.'" class="btn btn-primary">Visit Profile</a>
+        <div class="media">
+            <img src="<?= $players[$_GET['id']]['picture']?>" class="mr-3" alt="<?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name']?>" width = "500">
+            <div class="media-body">
+                <p> <?= 'Age: '.$players[$_GET['id']]['age']?></p>
+                <p> <?= 'Height: '.$players[$_GET['id']]['height']?></p>
+                <p> <?= 'Weight: '.$players[$_GET['id']]['weight']?></p>
+                <p> <?= 'Experience: '.$players[$_GET['id']]['experience']?></p>
+                <p> <?= 'College: '.$players[$_GET['id']]['college']?></p>
+            </div>
         </div>
-    </div>';
-    }
-    ?>
-
+    </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
