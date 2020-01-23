@@ -134,23 +134,39 @@ $players = [
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+<style>
+    .grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  padding 30px;
+    }
+    .grid-item {
+    padding 30px;
+  font-size: 30px;
+  text-align: center;
+}   
+</style>
     <title>Player Roster</title>
   </head>
   <body>
     <h1><center>Roster</center></h1>
     <hr>
+    <div class="grid-container">
     <?php
     for($i=0; $i < count($players); $i++){
-       echo '<div class="card" style="width: 18rem;">
+       echo '<div class="grid-item">
+       <div class="card" style="width: 18rem;">
          <img src="'.$players[$i]['picture'].'" class="card-img-top" alt="'.$players[$i]['first_name'].' '.$players[$i]['last_name'].'">
         <div class="card-body">
             <h5 class="card-title">'.$players[$i]['first_name'].' '.$players[$i]['last_name'].'</h5>
             <p class="card-text">#'.$players[$i]['number'].', '.$players[$i]['position'].'</p>
          <a href="http://localhost/git/RosterManage/detail.php?id='.$i.'" class="btn btn-primary">Visit Profile</a>
         </div>
+    </div>
     </div>';
     }
     ?>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
