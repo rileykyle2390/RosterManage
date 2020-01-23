@@ -121,6 +121,14 @@ $players = [
         'picture' => 'https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/qlfuys6o36ztraxqpgrg.jpg'
     ],
 ];
+if(!isset($_GET['id'])){
+    echo 'Please visit <a href="index.php">the Roster</a>';
+    die();
+}
+if($_GET['id'] < 0 || $_GET['id'] > count($players)-1){
+    echo 'Please visit <a href="index.php">the Roster</a>';
+    die();
+}
 
 ?>
 

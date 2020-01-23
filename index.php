@@ -146,7 +146,7 @@ $players = [
         <div class="card-body">
             <h5 class="card-title">'.$players[$i]['first_name'].' '.$players[$i]['last_name'].'</h5>
             <p class="card-text">#'.$players[$i]['number'].', '.$players[$i]['position'].'</p>
-         <a href="http://localhost/project/detail.php?id='.$i.'" class="btn btn-primary">Visit Profile</a>
+         <a href="http://localhost/git/RosterManage/detail.php?id='.$i.'" class="btn btn-primary">Visit Profile</a>
         </div>
     </div>';
     }
