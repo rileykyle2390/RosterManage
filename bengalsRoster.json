@@ -1,0 +1,122 @@
+[
+    {
+        "first_name" : "Andy",
+        "last_name" : "Dalton",
+        "number" : "14",
+        "age" : "32",
+        "position" : "QB",
+        "height" : "6-2",
+        "weight" : "220",
+        "experience" : "9",
+        "college" : "Texas Christian",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/evzci5wn5ytzjjxc23tl.jpg"
+    },
+    {
+        "first_name" : "Geno",
+        "last_name" : "Atkins",
+        "number" : "97",
+        "age" : "31",
+        "position" : "DT",
+        "height" : "6-1",
+        "weight" : "300",
+        "experience" : "10",
+        "college" : "Georgia",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/dgsnj9f7wn6q1xhjpycm.jpg"
+    },
+   {
+        "first_name" : "Jessie",
+        "last_name" : "Bates III",
+        "number" : "30",
+        "age" : "22",
+        "position" : "S",
+        "height" : "6-1",
+        "weight" : "200",
+        "experience" : "2",
+        "college" : "Wake Forest",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/iwfegboegy8w0kovcv3b.jpg"
+   },
+    {
+        "first_name" : "Giovanni",
+        "last_name" : "Bernard",
+        "number" : "25",
+        "age" : "28",
+        "position" : "HB",
+        "height" : "5-9",
+        "weight" : "205",
+        "experience" : "7",
+        "college" : "North Carolina",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/gh1fmzovrod6suib3rul.jpg"
+    },
+    {
+        "first_name" : "Tyler",
+        "last_name" : "Boyd",
+        "number" : "83",
+        "age" : "25",
+        "position" : "WR",
+        "height" : "6-2",
+        "weight" : "203",
+        "experience" : "4",
+        "college" : "Pittsburgh",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/twx0xw8bftxsqbu94ano.jpg"
+    },
+    {
+        "first_name" : "Randy",
+        "last_name" : "Bullock",
+        "number" : "4",
+        "age" : "30",
+        "position" : "K",
+        "height" : "5-9",
+        "weight" : "210",
+        "experience" : "8",
+        "college" : "Texas A&M",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/mlq9cacnwys3jyr29pyc.jpg"
+    },
+    {
+        "first_name" : "Carlos",
+        "last_name" : "Dunlap",
+        "number" : "96",
+        "age" : "30",
+        "position" : "DE",
+        "height" : "6-6",
+        "weight" : "285",
+        "experience" : "10",
+        "college" : "Florida",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/mxhk9fcuyena3pqjqdss.jpg"
+    },
+    {
+        "first_name" : "Joe",
+        "last_name" : "Mixon",
+        "number" : "28",
+        "age" : "23",
+        "position" : "HB",
+        "height" : "6-1",
+        "weight" : "220",
+        "experience" : "3",
+        "college" : "Oklahoma",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/fcwse1oumaizk6uqnztc.jpg"
+    },
+    {
+        "first_name" : "A.J.",
+        "last_name" : "Green",
+        "number" : "18",
+        "age" : "31",
+        "position" : "WR",
+        "height" : "6-4",
+        "weight" : "210",
+        "experience" : "9",
+        "college" : "Georgia",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/ouuz0wumam8froyuxv2d.jpg"
+    },
+    {
+        "first_name" : "Dre",
+        "last_name" : "Kirkpatrick",
+        "number" : "27",
+        "age" : "30",
+        "position" : "CB",
+        "height" : "6-2",
+        "weight" : "190",
+        "experience" : "8",
+        "college" : "Alabama",
+        "picture" : "https://static.clubs.nfl.com/image/private/t_thumb_squared_2x/f_auto/bengals/qlfuys6o36ztraxqpgrg.jpg"
+    }
+]
