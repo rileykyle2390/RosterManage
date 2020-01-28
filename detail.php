@@ -21,23 +21,11 @@ if($_GET['id'] < 0 || $_GET['id'] > count($players)-1){
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <title><?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name']?></title>
   </head>
   <body>
   <div class="container">
-    <h1><center><?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name'].' #'.$players[$_GET['id']]['number'].', '.$players[$_GET['id']]['position'] ?></center></h1>
-    <hr>
-        <div class="media">
-            <img src="<?= $players[$_GET['id']]['picture']?>" class="mr-3" alt="<?= $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name']?>" width = "500">
-            <div class="media-body">
-                <p> <?= 'Age: '.$players[$_GET['id']]['age']?></p>
-                <p> <?= 'Height: '.$players[$_GET['id']]['height']?></p>
-                <p> <?= 'Weight: '.$players[$_GET['id']]['weight']?></p>
-                <p> <?= 'Experience: '.$players[$_GET['id']]['experience']?></p>
-                <p> <?= 'College: '.$players[$_GET['id']]['college']?></p>
-            </div>
-        </div>
+  <?= detailItem($_GET['id'], $players[$_GET['id']]['first_name'].' '.$players[$_GET['id']]['last_name'].' #'.$players[$_GET['id']]['number'].', '.$players[$_GET['id']]['position'], $players[$_GET['id']]['age'], $players[$_GET['id']]['height'], $players[$_GET['id']]['weight'], $players[$_GET['id']]['experience'], $players[$_GET['id']]['college'], $players[$_GET['id']]['picture'])?>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
