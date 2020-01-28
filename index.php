@@ -16,15 +16,16 @@ $players = jsonToArray('bengalsRoster.json');
 
 <style>
     .grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  padding 30px;
+      display: grid;
+      justify-content: space-evenly;  
+      grid-template-columns: auto auto auto auto;
+      padding: 10px;
     }
     .grid-item {
-    padding 30px;
-  font-size: 30px;
-  text-align: center;
-}   
+    padding: 5px 0;
+    font-size: 30px;
+    text-align: center; 
+    }   
 </style>
     <title>Player Roster</title>
   </head>
