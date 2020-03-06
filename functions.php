@@ -64,5 +64,6 @@ function showItem($id, $heading, $picture, $body, $number, $position){
   function deleteJSON($file,$index){
     $input=readJSON($file);
     unset($input[$index]);
+    $input = array_values($input);
     writeJSON($file,$input);
   }

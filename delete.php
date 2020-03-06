@@ -1,6 +1,6 @@
 <?php
 require_once('functions.php');
-function create(){
+function delete(){
 if(count($_POST)>0){
     //MUST CHECK IF FILE EXISTS
     if(!file_exists('bengalsRoster.json')){
@@ -8,23 +8,22 @@ if(count($_POST)>0){
         fwrite($h, '');
         fclose($h);
     }
-    $h=fopen('bengalsRoster.json', 'r');
-    while(!feof($h)){
-        $line = fgets($h);
-        if(!strstr($line, $_POST['number'])){ 
-            return 'The player you entered is not on the roster.';
-        }
+    $toDelete = -1;
+    $players = readJSON('bengalsRoster.json');
+    foreach($players as $key=>$player){
+         if($player['number']==$_POST['number']) 
+             $toDelete = $key;
     }
-    fclose($h);
-    $playersArray = readJSON('bengalsRoster.json');
-    $toDelete = array_search($_POST['number'], array_column($playersArray, 'number'));
-    deleteJSON('bengalsRoster.json',$toDelete);
-    echo 'You deleted a player. Now you can <a href="index.php"> view the roster </a>.';
-    return "";
+    if($toDelete != -1){
+            deleteJSON('bengalsRoster.json',$toDelete);
+            echo 'You deleted a player. Now you can <a href="index.php"> view the roster </a>.';
+            return "";
+    }
+    return 'The player you are trying to delete is not yet on the roster according to the used number.';
 }
 }
 if(count($_POST)>0){
-    $error = create();
+    $error = delete();
 if(isset($error[0])) echo $error;
 }
 ?>
