@@ -8,14 +8,11 @@ if(count($_POST)>0){
         fwrite($h, '');
         fclose($h);
     }
-    $h=fopen('bengalsRoster.json', 'r');
-    while(!feof($h)){
-        $line = fgets($h);
-        if(strstr($line, $_POST['number'])){ 
-            return 'The player you entered is already on the roster.';
+    $players = readJSON('bengalsRoster.json');
+    foreach($players as $player){
+         if($player['number']==$_POST['number'])
+             return 'The player you entered is already on the roster.'; 
         }
-    }
-    fclose($h);
     $playersArray = readJSON('bengalsRoster.json');
     $newPlayer = array(
         'first_name' => $_POST['first_name'],

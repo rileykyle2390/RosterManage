@@ -1,6 +1,6 @@
 <?php
 require_once('functions.php');
-function create(){
+function edit(){
 if(count($_POST)>0){
     //MUST CHECK IF FILE EXISTS
     if(!file_exists('bengalsRoster.json')){
@@ -8,35 +8,35 @@ if(count($_POST)>0){
         fwrite($h, '');
         fclose($h);
     }
-    $h=fopen('bengalsRoster.json', 'r');
-    while(!feof($h)){
-        $line = fgets($h);
-        if(!strstr($line, $_POST['number'])){ 
-            return 'The player you entered is not on the roster.';
+    $toChange = -1;
+    $players = readJSON('bengalsRoster.json');
+    foreach($players as $key=>$player){
+         if($player['number']==$_POST['number']){
+         $newPlayer = array(
+            'first_name' => $_POST['first_name'],
+            'last_name' => $_POST['last_name'],
+            'number' => $_POST['number'],
+            'age' => $_POST['age'],
+            'position' => $_POST['position'],
+            'height' => $_POST['height'],
+            'weight' => $_POST['weight'],
+            'experience' => $_POST['experience'],
+            'college' => $_POST['college'],
+            'picture' => $_POST['picture']
+        );
+        $toChange = $key;
         }
     }
-    fclose($h);
-    $playersArray = readJSON('bengalsRoster.json');
-    $newPlayer = array(
-        'first_name' => $_POST['first_name'],
-        'last_name' => $_POST['last_name'],
-        'number' => $_POST['number'],
-        'age' => $_POST['age'],
-        'position' => $_POST['position'],
-        'height' => $_POST['height'],
-        'weight' => $_POST['weight'],
-        'experience' => $_POST['experience'],
-        'college' => $_POST['college'],
-        'picture' => $_POST['picture']
-    );
-    $toChange = array_search($_POST['number'], array_column($playersArray, 'number'));
-    modifyJSON('bengalsRoster.json',$newPlayer,$toChange);
-    echo 'You changed a player. Now you can <a href="index.php"> view the roster </a>.';
-    return "";
+    if($toChange != -1){
+        modifyJSON('bengalsRoster.json',$newPlayer,$toChange);
+        echo 'You changed a player. Now you can <a href="index.php"> view the roster </a>.';
+        return "";
+    }
+    return 'The player you are trying to edit is not yet on the roster according to the used number.';
 }
 }
 if(count($_POST)>0){
-    $error = create();
+    $error = edit();
 if(isset($error[0])) echo $error;
 }
 ?>
