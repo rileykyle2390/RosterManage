@@ -10,7 +10,7 @@ $q = $pdo->prepare('SELECT * FROM users WHERE userID = ? ');
 $q->execute([$_SESSION['user/ID']]);
 $record=$q->fetch();
 if($record['role'] == 'user') die('This area is for authorized users only. If you are a head coach or general manager, contact an admin to gain access. Otherwise, <a href="home.php">visit the home page.</a>');
-Template::showHeader('View Trades');
+Template::showHeader('Accept Trade');
 if ($record['role'] != 'su'){ //If site admin, can accept all trades
     //Otherwise, headcoach/gm only accept own trades
     $q = $pdo->prepare('SELECT * FROM `trades` WHERE teamIDIn = ? and tradeID = ?');

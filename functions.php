@@ -7,7 +7,7 @@ function jsonToArray(string $file){
 
 function showItem($id, $heading, $picture, $body, $number, $position){
     if(!isset($body)){
-        $body =  '<a href="http://localhost/git/RosterManage/detail.php?id='.$id.'" class="btn btn-primary">View Player</a>'; 
+        $body =  '<a href="http://localhost/RosterManage/detail.php?id='.$id.'" class="btn btn-primary">View Player</a>'; 
     }
     echo '<div class="grid-item">
     <div class="card" style="width: 18rem;">
