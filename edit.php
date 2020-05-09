@@ -1,38 +1,46 @@
 <?php
+require_once('settings.php');
 require_once('functions.php');
+require_once('db.php');
+require_once('authentication_library.php');
+require_once('template.php');
+session_start();
+if(!is_logged()) header('location: signin.php');
+if(!isset($_GET['id']) || $_GET['id'] < 0){
+    echo 'We are not sure how you got here. Please visit <a href="home.php">the Home Page</a>';
+    die();
+  }
+$pdo=DB::connect($settings);
+$q = $pdo->prepare('SELECT * FROM users WHERE userID = ? ');
+$q->execute([$_SESSION['user/ID']]);
+$record=$q->fetch();
+if($record['role'] == 'user') die('Regular users cannot edit players. Please <a href="home.php">visit the home page.</a>');
+if($record['role'] != 'su') $team = $record['teamID'];
+$q = $pdo->prepare('SELECT * FROM player WHERE playerID = ? ');
+$q->execute([$_GET['id']]);
+$record=$q->fetch();
+if(isset($team)){
+    if($record['teamID'] != $team) die('You can only edit your own players if you are not an admin.  You can <a href="admin_players.php">return to a list of your players.</a>');
+}
+$pdo = null;
+Template::showHeader('Edit Player');
+
 function edit(){
 if(count($_POST)>0){
-    //MUST CHECK IF FILE EXISTS
-    if(!file_exists('bengalsRoster.json')){
-        $h=fopen('bengalsRoster.json', 'w+');
-        fwrite($h, '');
-        fclose($h);
-    }
-    $toChange = -1;
-    $players = readJSON('bengalsRoster.json');
-    foreach($players as $key=>$player){
-         if($player['number']==$_POST['number']){
-         $newPlayer = array(
-            'first_name' => $_POST['first_name'],
-            'last_name' => $_POST['last_name'],
-            'number' => $_POST['number'],
-            'age' => $_POST['age'],
-            'position' => $_POST['position'],
-            'height' => $_POST['height'],
-            'weight' => $_POST['weight'],
-            'experience' => $_POST['experience'],
-            'college' => $_POST['college'],
-            'picture' => $_POST['picture']
-        );
-        $toChange = $key;
-        }
-    }
-    if($toChange != -1){
-        modifyJSON('bengalsRoster.json',$newPlayer,$toChange);
-        echo 'You changed a player. Now you can <a href="index.php"> view the roster </a>.';
-        return "";
-    }
-    return 'The player you are trying to edit is not yet on the roster according to the used number.';
+    require('settings.php');
+    //Must make sure we do not create 2 players with the same number on the same team
+    $pdo = DB::connect($settings);
+    $q = $pdo->prepare('SELECT * FROM player WHERE playerID = ?');
+    $q->execute([$_POST['playerID']]);
+    $player = $q->fetch();
+    $q = $pdo->prepare('SELECT * FROM player WHERE number = ? and teamID = ? and playerID != ?');
+    $q-> execute([$_POST['number'], $player['teamID'], $_POST['playerID']]);
+    if($q->rowCount() != 0 ) return 'Another player on the team is already using that number. Cannot have duplicates.';
+    $q = $pdo-> prepare('UPDATE player SET age = ?,experience = ?,college=?,height=?,weight=?,position=?,first_name=?,last_name=?,picture = ?, number = ?
+    WHERE playerID = ?');
+    $q->execute([$_POST['age'], $_POST['experience'], $_POST['college'], $_POST['height'], $_POST['weight'], $_POST['position'], $_POST['first_name'], $_POST['last_name'],$_POST['picture'], $_POST['number'], $_POST['playerID']]);
+    echo 'You successfully edited a player.  You can <a href="admin_players.php">return to a list of your players.</a>';
+    return "";
 }
 }
 if(count($_POST)>0){
@@ -42,26 +50,52 @@ if(isset($error[0])) echo $error;
 ?>
 
 
-<form action ="edit.php" method="POST">
+<form action ="edit.php?id=<?= $_GET['id'] ?>" method="POST">
+<div class="form-group">
+Player ID
+<input name ="playerID" value="<?= $record['playerID'] ?>" readonly class="form-control"/>
+</div>
+<div class="form-group">
 First Name
-<input name ="first_name" required/> <br />
+<input name ="first_name" value="<?= $record['first_name'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 Last Name
-<input name ="last_name" required /> <br />
+<input name ="last_name" value="<?= $record['last_name'] ?>"required class="form-control"/>
+</div>
+<div class="form-group">
 Number
-<input name ="number" required/> <br />
+<input name ="number" value="<?= $record['number'] ?>"required class="form-control"/>
+</div>
+<div class="form-group">
 Age
-<input name ="age" required /> <br />
+<input name ="age" value="<?= $record['age'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 Position
-<input name ="position" required/> <br />
+<input name ="position" value="<?= $record['position'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 Height
-<input name ="height" required /> <br />
+<input name ="height" value="<?= $record['height'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 Weight
-<input name ="weight" required/> <br />
+<input name ="weight" value="<?= $record['weight'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 Experience
-<input name ="experience" required /> <br />
+<input name ="experience" value="<?= $record['experience'] ?>" required class="form-control"/>
+</div>
+<div class="form-group">
 College
-<input name ="college" required/> <br />
+<input name ="college" value="<?= $record['college'] ?>"required class="form-control"/>
+</div>
+<div class="form-group">
 Link to picture
-<input name ="picture" required /> <br />
-<button type ="submit">Edit a player according to their number</button>
+<input name ="picture" value="<?= $record['picture'] ?>"required class="form-control"/>
+</div>
+<button type ="submit" class= "btn btn-primary">Edit player</button>
 </form>
+<?php
+Template::showFooter();

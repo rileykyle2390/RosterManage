@@ -1,4 +1,6 @@
 <?php
+require_once('db.php');
+
 function jsonToArray(string $file){
   return json_decode(file_get_contents($file), true);
 }
@@ -9,7 +11,7 @@ function showItem($id, $heading, $picture, $body, $number, $position){
     }
     echo '<div class="grid-item">
     <div class="card" style="width: 18rem;">
-      <img src="'.$picture.'" class="card-img-top" alt="'.$heading.'">
+      <img src="'.$picture.'" class="card-img-top" alt="'.$heading.'"  width = "250">
      <div class="card-body">
          <h5 class="card-title">#'.$number.', '.$position.'</h5>
          <p class="card-text">'.$heading.'</p>
@@ -20,7 +22,8 @@ function showItem($id, $heading, $picture, $body, $number, $position){
   }
 
   function detailItem($id, $heading, $age, $height, $weight, $experience, $college, $picture){
-    echo '<h1><center>'. $heading .'</center></h1>
+    require('settings.php');
+    echo'
     <hr>
         <div class="media">
             <img src="'.$picture.'" class="mr-3" alt=" '.$heading.'" width = "500">
@@ -29,8 +32,15 @@ function showItem($id, $heading, $picture, $body, $number, $position){
                 <p> Height: '.$height.'</p>
                 <p> Weight: '.$weight.'</p>
                 <p> Experience: '.$experience.'</p>
-                <p> College: '.$college.'</p>
-            </div>
+                <p> College: '.$college.'</p>';
+                $pdo=DB::connect($settings);
+                $q = $pdo->prepare('SELECT * FROM player_user_fans WHERE userID = ? and playerID=?');
+                $q->execute([$_SESSION['user/ID'], $id]);
+                if ($q->rowCount() == 0)
+                echo '<p> <button class="btn btn-primary btn-like">Become a fan of this player</button></p>';
+                else
+                echo '<p> <button class="btn btn-outline-primary btn-like">Stop being a fan of this player</button></p>';
+            echo'</div>
         </div>';
   }
 
